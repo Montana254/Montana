@@ -471,7 +471,7 @@
             <p class="mono tg text-xs md:text-sm break-all mb-4">bc1qfe8kjaau2n2ggknmx6a8gclzwc9xz3zpj0lcsp</p>
             <button onclick="cpyBTC()" class="btn-o px-6 py-2 text-xs rounded serif tracking-[.1em]"><i class="fas fa-copy mr-1"></i>Copy Address</button>
           </div>
-          <p class="text-xs text-gray-400 text-center">After sending, email <span class="tg">inquiries@al-mudir.dev</span> with your TX hash for confirmation.</p>
+          <p class="text-xs text-gray-400 text-center">After sending, email <span class="tg"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0e67607f7b677c676b7d4e6f6223637b6a677c206a6b78">[email&#160;protected]</a></span> with your TX hash for confirmation.</p>
         </div>
 
         <!-- Fee bar -->
@@ -609,20 +609,41 @@
 
 <button id="scrollTop" class="fixed bottom-8 right-8 z-50 w-12 h-12 gg rounded-full shadow-xl flex items-center justify-center font-bold hover:scale-110 transition-all" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up" style="color:#04120f"></i></button>
 
-<script src="https://s3.tradingview.com/tv.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://s3.tradingview.com/tv.js"></script>
 <script src="/crypto-payment.js"></script>
+<script src="/agents.js"></script>
 <script>
 'use strict';
 
 /* ── Supabase ─────────────────────────────────────────── */
-// Replace these with your Supabase project values
-const SB_URL  = 'https://fdwezkdtmvlcpfnbrjzp.supabase.co';
-const SB_KEY  = 'sb_publishable_99F6itx3-n0deIfoY4TKNg_njhtpSwC';
+// STEP 1: Replace these with your real Supabase values
+const SB_URL  = 'https://YOUR_PROJECT_ID.supabase.co';
+const SB_KEY  = 'YOUR_ANON_PUBLIC_KEY';
 let sb = null;
 function initSB() {
   try {
-    if (window.supabase) sb = window.supabase.createClient(SB_URL, SB_KEY);
-  } catch(_) {}
+    if (window.supabase && !SB_URL.includes('YOUR_PROJECT')) {
+      sb = window.supabase.createClient(SB_URL, SB_KEY);
+    } else if (SB_URL.includes('YOUR_PROJECT')) {
+      console.warn('[AL-MUDIR] Supabase not configured yet — running in offline mode. See SETUP.md.');
+    }
+  } catch(e) { console.warn('[Supabase]', e.message); }
+}
+
+/* ── Agent Config ─────────────────────────────────────── */
+// STEP 2: Add your Telegram bot token + chat ID here
+// Get token from @BotFather, get chat ID from SETUP.md instructions
+const AGENT_CFG = {
+  TELEGRAM_BOT_TOKEN: '',   // e.g. '7123456789:AAF...'
+  TELEGRAM_CHAT_ID:   '',   // e.g. '123456789'
+  RESEND_API_KEY:     '',   // get free at resend.com
+  ALERT_EMAIL:        'inquiries@al-mudir.dev',
+};
+function initAgents() {
+  if (window.ALMUDIRAgents && (AGENT_CFG.TELEGRAM_BOT_TOKEN || AGENT_CFG.RESEND_API_KEY)) {
+    window.ALMUDIRAgents.configure(AGENT_CFG);
+    console.log('[Agents] Configured with', AGENT_CFG.TELEGRAM_BOT_TOKEN ? 'Telegram' : '', AGENT_CFG.RESEND_API_KEY ? '+ Email' : '');
+  }
 }
 
 /* ── State ────────────────────────────────────────────── */
@@ -713,6 +734,9 @@ document.getElementById('nlForm').addEventListener('submit', async e => {
     if (sb) await sb.from('newsletter_subscribers').insert([{email}]);
     else await new Promise(r => setTimeout(r, 1000));
     toast('✓ Subscribed!','ok');
+    if (window.ALMUDIRAgents) {
+      window.ALMUDIRAgents.run({ type: 'newsletter.subscribed', payload: { email: email } }).catch(function(){});
+    }
     e.target.reset();
   } catch(_) { toast('Subscribed (offline mode)','ok'); }
   finally { btn.textContent = 'Subscribe Now'; btn.disabled = false; }
@@ -763,6 +787,10 @@ document.getElementById('regForm').addEventListener('submit', async e => {
       await new Promise(r => setTimeout(r, 700));
     }
     ST.user = u; save();
+    // Fire agents (non-blocking)
+    if (window.ALMUDIRAgents) {
+      window.ALMUDIRAgents.run({ type: 'user.created', payload: u }).catch(function(){});
+    }
     document.getElementById('regPanel').classList.add('hidden');
     document.getElementById('kycPanel').classList.remove('hidden');
     setStep(2);
@@ -920,9 +948,15 @@ async function doSend() {
       ? (ST.cpm.treasuryUSDTAddress[cid]   || ST.cpm.treasuryUSDTAddress[1])
       : (ST.cpm.treasuryNativeAddress[cid] || ST.cpm.treasuryNativeAddress[1]);
     const res = await ST.cpm.processPayment({ amount:amt, currency:cur, recipientAddress:addr, description:dsc });
-    addFee(ST.cpm.calculateUSD(amt, cur));
-    document.getElementById('txH').textContent = res.transactionHash.slice(0,10)+'…'+res.transactionHash.slice(-6);
-    document.getElementById('txBox').classList.remove('hidden');
+    const usdPaid = ST.cpm.calculateUSD(amt, cur);
+    addFee(usdPaid);
+    if (window.ALMUDIRAgents) {
+      window.ALMUDIRAgents.run({ type: 'payment.completed', payload: {
+        user_email: ST.user ? ST.user.email : 'unknown',
+        method: 'crypto', currency: cur, amount: amt,
+        amount_usd: usdPaid, tx_hash: res.transactionHash, status: 'pending'
+      }}).catch(function(){});
+    }
     toast('✓ Transaction submitted!','ok');
   } catch(e) { toast('Payment failed: '+e.message,'err'); }
   finally { btn.textContent = 'Send Payment'; btn.disabled = false; }
@@ -1063,13 +1097,4 @@ window.addEventListener('load', () => {
   }, { threshold: 0.08 });
   document.querySelectorAll('section').forEach(s => {
     s.style.opacity = '0';
-    s.style.transform = 'translateY(18px)';
-    s.style.transition = 'opacity .7s ease, transform .7s ease';
-    obs.observe(s);
-  });
-  // SW
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
-});
-</script>
-</body>
-</html>
+    s.style.transform = 'translate
