@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="description" content="AL-MUDIR — Private wealth management and fintech ventures. Institutional-grade portfolio management."/>
+  <meta name="theme-color" content="#04120f"/>
+  <title>AL-MUDIR | Sovereign Wealth & Fintech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FinancialService","name":"AL-MUDIR","description":"Private wealth management and fintech ventures","url":"https://al-mudir.vercel.app","areaServed":["AE","GB","US"],"address":{"@type":"PostalAddress","addressCountry":"AE","addressLocality":"Dubai","streetAddress":"DIFC"},"contactPoint":{"@type":"ContactPoint","contactType":"Customer Service","email":"inquiries@al-mudir.dev"}}</script>
+  <style>
+    :root{--gold:#d4af37;--gold-l:#f2d06b;--gold-d:#996515;--d1:#04120f;--d2:#061d18;--d3:#0a2622;--tx:#e8e0d0}
+    *{scroll-behavior:smooth;box-sizing:border-box}
+    body{font-family:'Lato',sans-serif;background:var(--d1);color:var(--tx);overflow-x:hidden;letter-spacing:.3px}
+    .serif{font-family:'Cinzel',serif;font-weight:600}
+    .mono{font-family:'Courier Prime',monospace}
+    .gg{background:linear-gradient(135deg,#d4af37 0%,#f2d06b 50%,#996515 100%)}
+    .tg{background:linear-gradient(135deg,#d4af37 0%,#f2d06b 50%,#996515 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .bg1{background:var(--d1)}.bg2{background:var(--d2)}.bg3{background:var(--d3)}
+    .glass{background:rgba(10,38,34,.4);backdrop-filter:blur(10px);border:1px solid rgba(212,175,55,.1)}
+    .bgo{border:1px solid rgba(212,175,55,.3);transition:border-color .3s,box-shadow .3s}
+    .bgo:hover{border-color:rgba(212,175,55,.6);box-shadow:0 0 20px rgba(212,175,55,.15)}
+    .btn-g{background:var(--gold);color:var(--d1);font-weight:700;transition:all .35s cubic-bezier(.175,.885,.32,1.275);text-transform:uppercase;letter-spacing:.15em;cursor:pointer;display:inline-block;text-align:center}
+    .btn-g:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 12px 24px rgba(212,175,55,.4)}
+    .btn-g:active{transform:translateY(0)}
+    .btn-g:disabled,.btn-g[disabled]{opacity:.5;cursor:not-allowed;transform:none!important}
+    .btn-o{border:1.5px solid var(--gold);color:var(--gold);background:transparent;transition:all .3s;text-transform:uppercase;letter-spacing:.15em;font-weight:700;cursor:pointer;display:inline-block;text-align:center}
+    .btn-o:hover{background:rgba(212,175,55,.1);box-shadow:inset 0 0 20px rgba(212,175,55,.2)}
+    .btn-o:disabled,.btn-o[disabled]{opacity:.5;cursor:not-allowed}
+    /* Light theme */
+    [data-theme=light] body{background:#f8f6f1;color:#2c2c2c}
+    [data-theme=light] .bg1{background:#fff}[data-theme=light] .bg2{background:#f5f1eb}[data-theme=light] .bg3{background:#ede7de}
+    [data-theme=light] .glass{background:rgba(255,255,255,.7)}
+    [data-theme=light] nav{background:rgba(255,255,255,.95)!important}
+    [data-theme=light] .tg{-webkit-text-fill-color:var(--gold-d)}
+    [data-theme=light] input,[data-theme=light] select,[data-theme=light] textarea{color:#2c2c2c!important}
+    nav{background:linear-gradient(180deg,rgba(6,29,24,.95) 0%,rgba(6,29,24,.85) 100%);backdrop-filter:blur(12px)}
+    .nl{position:relative;transition:color .3s}
+    .nl::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+    .nl:hover::after{width:100%}
+    .tbtn{position:fixed;top:20px;right:8px;z-index:999;width:44px;height:44px;background:var(--gold);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--d1);font-size:18px;transition:all .3s;box-shadow:0 4px 12px rgba(212,175,55,.3)}
+    .tbtn:hover{transform:scale(1.1) rotate(20deg)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(212,175,55,.3)}50%{box-shadow:0 0 40px rgba(212,175,55,.5)}}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+    @keyframes shimmer{0%{background-position:-1000px 0}100%{background-position:1000px 0}}
+    .afu{animation:fadeUp .8s ease-out forwards}
+    .glow{animation:glow 3s ease-in-out infinite}
+    .hlift{transition:all .3s cubic-bezier(.175,.885,.32,1.275)}
+    .hlift:hover{transform:translateY(-4px)}
+    .aline{background:linear-gradient(90deg,transparent,var(--gold),transparent);height:1px}
+    .sc{position:relative;overflow:hidden}
+    .sc::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(212,175,55,.1),transparent);transition:left .5s}
+    .sc:hover::before{left:100%}
+    input::placeholder,textarea::placeholder{color:rgba(212,175,55,.4)}
+    input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold)!important;box-shadow:0 0 20px rgba(212,175,55,.25)}
+    select option{background:var(--d2);color:var(--tx)}
+    .tc{position:relative;padding:2rem;border-radius:.5rem}
+    .tc::before{content:'"';position:absolute;top:-10px;left:0;font-size:80px;font-weight:bold;color:rgba(212,175,55,.1);font-family:'Cinzel',serif}
+    /* Dashboard */
+    .dtab{cursor:pointer;padding:.65rem 1.25rem;font-size:.68rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;border-bottom:2px solid transparent;color:#6b7280;transition:all .3s;white-space:nowrap}
+    .dtab.on{border-color:var(--gold);color:#fff}
+    .dtab:hover:not(.on){color:#9ca3af}
+    .dpanel{display:none}.dpanel.on{display:block}
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem}
+    .mbox{background:var(--d2);border:1px solid rgba(212,175,55,.3);border-radius:1rem;padding:1.75rem;max-width:960px;width:100%;max-height:92vh;overflow-y:auto}
+    /* Badges */
+    .bg-green{background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3);padding:.2rem .6rem;border-radius:9999px;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em}
+    .bg-gold{background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.3);padding:.2rem .6rem;border-radius:9999px;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em}
+    .bg-red{background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3);padding:.2rem .6rem;border-radius:9999px;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em}
+    /* Toast */
+    #toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(120px);z-index:99999;background:var(--d2);border:1px solid rgba(212,175,55,.4);border-radius:.5rem;padding:.85rem 1.5rem;font-size:.82rem;min-width:260px;text-align:center;transition:transform .4s cubic-bezier(.175,.885,.32,1.275);pointer-events:none}
+    #toast.show{transform:translateX(-50%) translateY(0)}
+    #toast.ok{border-color:rgba(16,185,129,.5)}
+    #toast.err{border-color:rgba(239,68,68,.5)}
+    /* Steps */
+    .snum{width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0}
+    .sdone{background:rgba(16,185,129,.2);color:#10b981;border:1px solid rgba(16,185,129,.4)}
+    .sact{background:rgba(212,175,55,.2);color:var(--gold);border:1px solid rgba(212,175,55,.4)}
+    .spend{background:rgba(107,114,128,.2);color:#6b7280;border:1px solid rgba(107,114,128,.3)}
+    /* Mobile */
+    #mob{display:none}
+    #mob.open{display:flex}
+    #scrollTop{transition:opacity .3s,transform .3s;opacity:0;pointer-events:none}
+    #scrollTop.vis{opacity:1;pointer-events:auto}
+    @media(max-width:768px){h1{font-size:2.4rem!important}.hide-m{display:none!important}.full-m{width:100%!important}.dtab{padding:.5rem .65rem;font-size:.6rem}}
+    @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    @media print{nav,.tbtn,#scrollTop,#toast{display:none}body{background:#fff;color:#000}}
+  </style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<button id="themeBtn" class="tbtn" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+
+<!-- ═══ NAV ══════════════════════════════════════════════ -->
+<nav class="sticky top-0 z-50" style="border-bottom:1px solid rgba(212,175,55,.3)">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+    <div class="text-2xl md:text-3xl serif font-bold tg tracking-[.2em]">⬢ AL-MUDIR</div>
+    <div class="hidden md:flex space-x-10">
+      <a href="#about"   class="nl text-xs uppercase tracking-[.15em] text-gray-300 font-light">The Manager</a>
+      <a href="#metrics" class="nl text-xs uppercase tracking-[.15em] text-gray-300 font-light">Portfolio</a>
+      <a href="#charts"  class="nl text-xs uppercase tracking-[.15em] text-gray-300 font-light">Terminal</a>
+      <a href="#signup"  class="nl text-xs uppercase tracking-[.15em] text-gray-300 font-light">Join</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="navDash" class="hidden btn-g px-4 py-2 text-xs rounded serif tracking-[.1em]" onclick="openDash()"><i class="fas fa-th-large mr-1"></i>Dashboard</button>
+      <button id="navPortal" class="btn-o px-5 py-2 text-xs rounded serif" onclick="goSignup()">Access Portal</button>
+      <button id="ham" class="md:hidden text-gray-300 p-2"><i class="fas fa-bars text-xl"></i></button>
+    </div>
+  </div>
+  <div id="mob" class="flex-col px-4 pb-4 space-y-2" style="border-top:1px solid rgba(212,175,55,.2)">
+    <a href="#about"   class="block text-xs uppercase tracking-[.15em] text-gray-300 py-2">The Manager</a>
+    <a href="#metrics" class="block text-xs uppercase tracking-[.15em] text-gray-300 py-2">Portfolio</a>
+    <a href="#charts"  class="block text-xs uppercase tracking-[.15em] text-gray-300 py-2">Terminal</a>
+    <a href="#signup"  class="block text-xs uppercase tracking-[.15em] text-gray-300 py-2">Join</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ══════════════════════════════════════════════ -->
+<section class="relative min-h-screen flex flex-col justify-center items-center text-center px-6 py-20 overflow-hidden bg2">
+  <div class="absolute inset-0 opacity-5 pointer-events-none">
+    <div class="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-amber-600 to-transparent rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-tl from-emerald-700 to-transparent rounded-full blur-3xl"></div>
+  </div>
+  <div class="relative z-10 max-w-4xl w-full">
+    <div class="aline w-24 mx-auto mb-6 opacity-60 afu"></div>
+    <p class="text-xs md:text-sm uppercase tracking-[.4em] mb-8 text-gray-400 font-light afu" style="animation-delay:.1s">Sovereign Wealth • Fintech Innovation • SMC Execution</p>
+    <h1 class="text-5xl md:text-7xl lg:text-8xl serif mb-10 tg leading-tight font-bold afu" style="animation-delay:.2s">Preserving Capital.<br><span class="text-white">Architecting Alpha.</span></h1>
+    <p class="max-w-2xl mx-auto text-gray-300 font-light leading-relaxed text-sm md:text-base mb-12 afu" style="animation-delay:.3s">Institutional-grade portfolio management at the intersection of traditional heritage and algorithmic innovation. <span class="tg font-semibold">+7 Figure AUM</span> executing proprietary Smart Money Concepts with <span class="mono text-xs">0.04ms</span> latency.</p>
+    <div class="flex flex-col md:flex-row gap-5 justify-center mb-16 afu" style="animation-delay:.4s">
+      <a href="#signup" class="btn-g px-10 py-4 serif text-sm tracking-[.15em] rounded">Schedule Briefing</a>
+      <a href="#charts" class="btn-o px-10 py-4 serif text-sm tracking-[.15em] rounded">View Terminal</a>
+    </div>
+    <div class="flex flex-col md:flex-row gap-8 justify-center text-xs mono afu" style="animation-delay:.5s">
+      <div class="flex items-center gap-2 justify-center"><div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div><span class="text-gray-400">System: <span class="text-green-400 font-bold">ACTIVE</span></span></div>
+      <span class="text-gray-400">Latency: <span class="tg font-bold">0.04ms</span></span>
+      <span class="text-gray-400">DUBAI • LONDON • NY</span>
+    </div>
+  </div>
+  <a href="#about" class="absolute bottom-8 z-10 opacity-40 hover:opacity-100 transition" style="animation:bounce 2s infinite"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></a>
+</section>
+
+<!-- ═══ ABOUT ══════════════════════════════════════════════ -->
+<section id="about" class="relative py-28 px-6 md:px-8 bg2" style="border-top:1px solid rgba(212,175,55,.3);border-bottom:1px solid rgba(212,175,55,.3)">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block px-4 py-2 glass rounded mb-6 text-xs uppercase tracking-[.2em] tg font-semibold">About The Fund</span>
+      <h2 class="text-4xl md:text-5xl serif mb-4 text-white">The Principal</h2>
+      <div class="aline w-20 mx-auto opacity-60"></div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-14 items-center">
+      <div class="hlift">
+        <p class="text-lg md:text-xl text-gray-200 mb-6 leading-relaxed font-light">Managing a <span class="tg font-bold text-2xl">+7 Figure AUM</span> portfolio at the intersection of traditional stability and disruptive fintech innovation.</p>
+        <p class="text-gray-400 mb-8 leading-relaxed font-light text-sm">As a <span class="tg font-semibold">Fund Manager & Fintech Entrepreneur</span>, we deconstruct complex market liquidity into high-probability execution models using our proprietary Smart Money Concepts (SMC) framework — identifying institutional accumulation/distribution patterns with algorithmic precision.</p>
+        <div class="grid grid-cols-2 gap-5 mt-10">
+          <div class="sc bgo glass p-6 rounded-lg hlift text-center"><div class="text-3xl serif font-bold tg mb-1">7+</div><div class="text-xs uppercase tracking-[.15em] text-gray-400">Figure AUM</div><div class="text-xs text-gray-500 mt-1">Global Portfolio</div></div>
+          <div class="sc bgo glass p-6 rounded-lg hlift text-center"><div class="text-3xl serif font-bold tg mb-1">ALGO</div><div class="text-xs uppercase tracking-[.15em] text-gray-400">SMC Logic</div><div class="text-xs text-gray-500 mt-1">Proprietary System</div></div>
+          <div class="sc bgo glass p-6 rounded-lg hlift text-center"><div class="text-3xl serif font-bold tg mb-1">3</div><div class="text-xs uppercase tracking-[.15em] text-gray-400">Global Hubs</div><div class="text-xs text-gray-500 mt-1">Dubai • London • NY</div></div>
+          <div class="sc bgo glass p-6 rounded-lg hlift text-center"><div class="text-3xl serif font-bold tg mb-1">24/7</div><div class="text-xs uppercase tracking-[.15em] text-gray-400">Operations</div><div class="text-xs text-gray-500 mt-1">Always Active</div></div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="absolute -inset-4 border-2 rounded-lg glow" style="border-color:rgba(212,175,55,.2)"></div>
+        <img src="https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?auto=format&fit=crop&w=600&q=80" alt="AL-MUDIR Principal" class="relative z-10 w-full rounded-lg grayscale hover:grayscale-0 transition duration-700 shadow-2xl hlift" style="border:1px solid rgba(212,175,55,.3)" loading="lazy"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent rounded-lg pointer-events-none"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ METRICS ════════════════════════════════════════════ -->
+<section id="metrics" class="relative py-28 px-6 md:px-8 bg1">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block px-4 py-2 glass rounded mb-6 text-xs uppercase tracking-[.2em] tg font-semibold">Portfolio Metrics</span>
+      <h2 class="text-4xl md:text-5xl serif mb-4 text-white">Performance Overview</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+      <div class="bgo glass p-6 rounded-lg hlift group"><div class="flex justify-between items-start mb-3"><div><div class="text-xs uppercase tracking-[.12em] text-gray-400 mb-2">Total AUM</div><div class="text-3xl serif font-bold text-white">$7.8M</div></div><div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center group-hover:bg-green-500/20 transition"><i class="fas fa-chart-line text-green-400"></i></div></div><span class="text-green-400 text-sm font-bold">+12.4%</span><span class="text-gray-500 text-xs ml-1">YTD</span></div>
+      <div class="bgo glass p-6 rounded-lg hlift group"><div class="flex justify-between items-start mb-3"><div><div class="text-xs uppercase tracking-[.12em] text-gray-400 mb-2">Positions</div><div class="text-3xl serif font-bold text-white">24</div></div><div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center group-hover:bg-blue-500/20 transition"><i class="fas fa-briefcase text-blue-400"></i></div></div><span class="text-blue-400 text-sm font-bold">Diversified</span></div>
+      <div class="bgo glass p-6 rounded-lg hlift group"><div class="flex justify-between items-start mb-3"><div><div class="text-xs uppercase tracking-[.12em] text-gray-400 mb-2">Sharpe Ratio</div><div class="text-3xl serif font-bold text-white">2.84</div></div><div class="w-10 h-10 bg-amber-500/10 rounded-lg flex items-center justify-center group-hover:bg-amber-500/20 transition"><i class="fas fa-tachometer-alt text-amber-400"></i></div></div><span class="text-amber-400 text-sm font-bold">Excellent</span></div>
+      <div class="bgo glass p-6 rounded-lg hlift group"><div class="flex justify-between items-start mb-3"><div><div class="text-xs uppercase tracking-[.12em] text-gray-400 mb-2">Max Drawdown</div><div class="text-3xl serif font-bold text-white">-3.2%</div></div><div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center group-hover:bg-purple-500/20 transition"><i class="fas fa-shield-alt text-purple-400"></i></div></div><span class="text-purple-400 text-sm font-bold">Protected</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TERMINAL ═══════════════════════════════════════════ -->
+<section id="charts" class="relative py-28 px-4 md:px-8 bg1">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block px-4 py-2 glass rounded mb-6 text-xs uppercase tracking-[.2em] tg font-semibold">Live Data</span>
+      <h2 class="text-4xl md:text-5xl serif mb-4 tg">Execution Terminal</h2>
+      <div class="flex flex-wrap justify-center gap-4 mt-6 text-xs mono">
+        <div class="flex items-center gap-2"><div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div><span class="text-gray-400">Latency <span class="text-green-400 font-bold">0.04ms</span></span></div>
+        <span class="text-gray-600">•</span><span class="text-gray-400">Market <span class="tg font-bold">OPEN</span></span>
+        <span class="text-gray-600">•</span><span class="text-gray-400">TF <span class="tg font-bold">15m</span></span>
+      </div>
+    </div>
+    <div class="bgo glass p-1 rounded-xl shadow-2xl overflow-hidden">
+      <div class="bg2 rounded-lg p-4"><div id="tv_main" style="height:600px;width:100%"></div></div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5 mt-10">
+      <div class="bgo glass p-5 rounded-lg hlift"><div class="flex items-center gap-3 mb-3"><i class="fas fa-brain tg text-lg"></i><span class="text-xs uppercase tracking-[.15em] text-gray-400 font-semibold">AI Analysis</span></div><p class="text-sm text-gray-300">Smart Money accumulation detected in resistance zone. Probability: 78%</p></div>
+      <div class="bgo glass p-5 rounded-lg hlift"><div class="flex items-center gap-3 mb-3"><i class="fas fa-signal tg text-lg"></i><span class="text-xs uppercase tracking-[.15em] text-gray-400 font-semibold">Signal Strength</span></div><p class="text-sm text-gray-300">Confluence of SMC levels with institutional order flow. Strong setup detected.</p></div>
+      <div class="bgo glass p-5 rounded-lg hlift"><div class="flex items-center gap-3 mb-3"><i class="fas fa-lock tg text-lg"></i><span class="text-xs uppercase tracking-[.15em] text-gray-400 font-semibold">Risk Mgmt</span></div><p class="text-sm text-gray-300">Automated stop-loss at support. Risk/Reward ratio: 1:3.2</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══════════════════════════════════════════ -->
+<section class="relative py-28 px-6 md:px-8 bg1" style="border-top:1px solid rgba(212,175,55,.3)">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block px-4 py-2 glass rounded mb-6 text-xs uppercase tracking-[.2em] tg font-semibold">Capabilities</span>
+      <h2 class="text-4xl md:text-5xl serif mb-4 text-white">Core Competencies</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-7">
+      <div class="bgo glass p-7 rounded-lg hlift group"><div class="w-14 h-14 gg rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition"><i class="fas fa-chart-line text-2xl" style="color:#04120f"></i></div><h3 class="text-lg serif font-bold mb-3 text-white">Portfolio Optimization</h3><p class="text-gray-400 text-sm leading-relaxed">Algorithmic rebalancing and SMC analysis across multi-asset classes with institutional-grade execution.</p></div>
+      <div class="bgo glass p-7 rounded-lg hlift group"><div class="w-14 h-14 gg rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition"><i class="fas fa-brain text-2xl" style="color:#04120f"></i></div><h3 class="text-lg serif font-bold mb-3 text-white">AI-Powered Analytics</h3><p class="text-gray-400 text-sm leading-relaxed">Machine learning models detect institutional accumulation patterns and probabilistic entry/exit points.</p></div>
+      <div class="bgo glass p-7 rounded-lg hlift group"><div class="w-14 h-14 gg rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition"><i class="fas fa-shield-alt text-2xl" style="color:#04120f"></i></div><h3 class="text-lg serif font-bold mb-3 text-white">Capital Preservation</h3><p class="text-gray-400 text-sm leading-relaxed">Institutional risk protocols with automated stop-losses, position sizing, and diversified hedge strategies.</p></div>
+      <div class="bgo glass p-7 rounded-lg hlift group"><div class="w-14 h-14 gg rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition"><i class="fas fa-bolt text-2xl" style="color:#04120f"></i></div><h3 class="text-lg serif font-bold mb-3 text-white">HF Execution</h3><p class="text-gray-400 text-sm leading-relaxed">Sub-millisecond latency with direct market access across major exchanges and 24/7 algorithmic execution.</p></div>
+      <div class="bgo glass p-7 rounded-lg hlift group"><div class="w-14 h-14 gg rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition"><i class="fas fa-globe text-2xl" style="color:#04120f"></i></div><h3 class="text-lg serif font-bold mb-3 text-white">Multi-Asset Coverage</h3><p class="text-gray-400 text-sm leading-relaxed">FX, Index Futures, Cryptocurrencies, Commodities, and Bonds in a unified portfolio framework.</p></div>
+      <div class="bgo glass p-7 rounded-lg hlift group"><div class="w-14 h-14 gg rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition"><i class="fas fa-lock text-2xl" style="color:#04120f"></i></div><h3 class="text-lg serif font-bold mb-3 text-white">Enterprise Security</h3><p class="text-gray-400 text-sm leading-relaxed">Institutional-grade encryption, MFA, and compliance with DFSA, FCA, and FINRA standards.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ════════════════════════════════════════ -->
+<section class="relative py-28 px-6 md:px-8 bg2" style="border-top:1px solid rgba(212,175,55,.3)">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block px-4 py-2 glass rounded mb-6 text-xs uppercase tracking-[.2em] tg font-semibold">Social Proof</span>
+      <h2 class="text-4xl md:text-5xl serif mb-4 text-white">Institutional Testimonials</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-7">
+      <div class="tc bgo glass hlift"><div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 rounded-full gg flex items-center justify-center font-bold text-sm" style="color:#04120f">SI</div><div><div class="text-sm font-bold text-white">Sultanah Investments</div><div class="text-xs text-gray-500">Dubai, UAE</div></div></div><div class="text-yellow-400 mb-3 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-300 text-sm leading-relaxed italic">"The algorithmic precision and capital preservation demonstrated across market cycles exceed institutional benchmarks."</p></div>
+      <div class="tc bgo glass hlift"><div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 rounded-full gg flex items-center justify-center font-bold text-sm" style="color:#04120f">LCM</div><div><div class="text-sm font-bold text-white">London Capital Mgmt</div><div class="text-xs text-gray-500">London, UK</div></div></div><div class="text-yellow-400 mb-3 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-300 text-sm leading-relaxed italic">"Direct market access with professional-grade execution. SMC framework has become integral to our fund allocation."</p></div>
+      <div class="tc bgo glass hlift"><div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 rounded-full gg flex items-center justify-center font-bold text-sm" style="color:#04120f">NYC</div><div><div class="text-sm font-bold text-white">NY Capital Partners</div><div class="text-xs text-gray-500">New York, USA</div></div></div><div class="text-yellow-400 mb-3 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-gray-300 text-sm leading-relaxed italic">"Outstanding execution across FX and futures markets. The latency improvements have enhanced our competitive positioning."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEWSLETTER ══════════════════════════════════════════ -->
+<section class="relative py-20 px-6 md:px-8 bg1" style="border-top:1px solid rgba(212,175,55,.3);border-bottom:1px solid rgba(212,175,55,.3)">
+  <div class="max-w-3xl mx-auto text-center">
+    <span class="inline-block px-4 py-2 glass rounded mb-6 text-xs uppercase tracking-[.2em] tg font-semibold">Stay Updated</span>
+    <h2 class="text-3xl md:text-4xl serif mb-4 text-white">Market Insights & Signals</h2>
+    <p class="text-gray-400 mb-10 text-sm leading-relaxed">Subscribe to receive institutional-grade market analysis, SMC signal alerts, and exclusive fintech research weekly.</p>
+    <form id="nlForm" class="flex flex-col md:flex-row gap-4 justify-center mb-6">
+      <input type="email" id="nlEmail" placeholder="Your professional email address" required class="bg-transparent rounded px-5 py-3 text-sm w-full md:max-w-xs" style="border:2px solid rgba(212,175,55,.3)"/>
+      <button type="submit" class="btn-g px-8 py-3 serif text-sm tracking-[.15em] rounded whitespace-nowrap">Subscribe Now</button>
+    </form>
+    <p class="text-xs text-gray-500">No spam. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- ═══ SIGNUP ══════════════════════════════════════════════ -->
+<section id="signup" class="relative py-28 px-6 md:px-8 bg2" style="border-top:1px solid rgba(212,175,55,.3)">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="inline-block px-4 py-2 glass rounded mb-6 text-xs uppercase tracking-[.2em] tg font-semibold">Exclusive Access</span>
+      <h2 class="text-4xl md:text-5xl serif mb-3 tg">Join AL-MUDIR</h2>
+      <p class="text-gray-400 text-sm">Secure your position in institutional-grade wealth management</p>
+    </div>
+    <!-- Progress -->
+    <div class="flex items-center justify-center gap-3 mb-12 flex-wrap">
+      <div class="flex items-center gap-2"><div id="s1n" class="snum sact">1</div><span id="s1t" class="text-xs text-gray-300">Register</span></div>
+      <div class="aline w-8 opacity-40"></div>
+      <div class="flex items-center gap-2"><div id="s2n" class="snum spend">2</div><span id="s2t" class="text-xs text-gray-500">KYC</span></div>
+      <div class="aline w-8 opacity-40"></div>
+      <div class="flex items-center gap-2"><div id="s3n" class="snum spend">3</div><span id="s3t" class="text-xs text-gray-500">Dashboard</span></div>
+    </div>
+
+    <!-- Registration form -->
+    <div id="regPanel">
+      <form id="regForm" class="space-y-7" novalidate>
+        <div class="grid md:grid-cols-2 gap-7">
+          <input id="rFN" type="text" placeholder="FIRST NAME" required class="w-full bg-transparent py-4 text-sm tracking-[.1em]" style="border-bottom:2px solid rgba(212,175,55,.3)"/>
+          <input id="rLN" type="text" placeholder="LAST NAME"  required class="w-full bg-transparent py-4 text-sm tracking-[.1em]" style="border-bottom:2px solid rgba(212,175,55,.3)"/>
+        </div>
+        <input id="rEM" type="email" placeholder="PROFESSIONAL EMAIL ADDRESS" required class="w-full bg-transparent py-4 text-sm tracking-[.1em]" style="border-bottom:2px solid rgba(212,175,55,.3)"/>
+        <div class="grid md:grid-cols-2 gap-7">
+          <input id="rPH" type="tel" placeholder="PHONE NUMBER" required class="w-full bg-transparent py-4 text-sm tracking-[.1em]" style="border-bottom:2px solid rgba(212,175,55,.3)"/>
+          <select id="rEX" required class="w-full bg-transparent py-4 text-sm tracking-[.1em]" style="border-bottom:2px solid rgba(212,175,55,.3)">
+            <option value="" disabled selected>INVESTMENT EXPERIENCE</option>
+            <option value="beginner">Beginner (0–2 yrs)</option>
+            <option value="intermediate">Intermediate (2–5 yrs)</option>
+            <option value="advanced">Advanced (5–10 yrs)</option>
+            <option value="expert">Expert (10+ yrs)</option>
+            <option value="institutional">Institutional</option>
+          </select>
+        </div>
+        <input id="rAM" type="text" placeholder="PLANNED INVESTMENT AMOUNT (USD)" required class="w-full bg-transparent py-4 text-sm tracking-[.1em]" style="border-bottom:2px solid rgba(212,175,55,.3)"/>
+        <textarea id="rOB" rows="3" placeholder="INVESTMENT OBJECTIVES & RISK TOLERANCE" required class="w-full bg-transparent p-4 rounded-lg resize-none text-sm" style="border:2px solid rgba(212,175,55,.3)"></textarea>
+        <div class="flex items-start gap-4">
+          <input type="checkbox" id="rTC" required class="mt-1 w-4 h-4" style="accent-color:var(--gold)"/>
+          <label for="rTC" class="text-xs text-gray-400 leading-relaxed">I certify I am at least 18 and an accredited investor. I understand the high-risk nature of algorithmic trading and accept full responsibility.</label>
+        </div>
+        <p id="rErr" class="text-red-400 text-xs text-center hidden"></p>
+        <div class="flex justify-center pt-2">
+          <button type="submit" id="rBtn" class="btn-g px-14 py-4 serif text-sm tracking-[.2em] uppercase rounded-lg shadow-xl">Complete Registration</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- KYC panel -->
+    <div id="kycPanel" class="hidden">
+      <div class="bg3 bgo glass p-8 rounded-xl">
+        <div id="kycForm">
+          <div class="text-center mb-8">
+            <i class="fas fa-id-card tg text-4xl mb-4"></i>
+            <h3 class="text-xl serif font-bold text-white mb-2">Identity Verification</h3>
+            <p class="text-gray-400 text-sm">Complete KYC to unlock your full dashboard. Takes 2–5 minutes.</p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-5 mb-5">
+            <div><label class="block text-xs uppercase tracking-[.1em] text-gray-400 mb-2">Full Legal Name</label><input type="text" id="kName" class="w-full bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"/></div>
+            <div><label class="block text-xs uppercase tracking-[.1em] text-gray-400 mb-2">Date of Birth</label><input type="date" id="kDob" class="w-full bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"/></div>
+          </div>
+          <div class="mb-5">
+            <label class="block text-xs uppercase tracking-[.1em] text-gray-400 mb-2">ID Document (Passport / National ID)</label>
+            <div class="p-8 rounded-lg text-center cursor-pointer transition" style="border:2px dashed rgba(212,175,55,.3)" onclick="document.getElementById('kDoc').click()">
+              <i class="fas fa-upload tg text-2xl mb-3"></i>
+              <p id="kDocLbl" class="text-gray-400 text-sm">Click to upload (JPG, PNG, PDF)</p>
+              <input type="file" id="kDoc" accept="image/*,.pdf" class="hidden" onchange="document.getElementById('kDocLbl').textContent=this.files[0]?.name||'No file'"/>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 mb-6">
+            <input type="checkbox" id="kCon" class="w-4 h-4" style="accent-color:var(--gold)"/>
+            <label for="kCon" class="text-xs text-gray-400">I consent to identity verification and the privacy policy</label>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <button id="kSubmit" class="btn-g px-10 py-3 serif text-sm tracking-[.15em] uppercase rounded-lg">Submit Verification</button>
+            <button id="kSkip"   class="btn-o px-10 py-3 serif text-sm tracking-[.15em] uppercase rounded-lg">Skip for Now</button>
+          </div>
+        </div>
+        <div id="kycProc" class="hidden text-center py-8">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full" style="border:4px solid rgba(212,175,55,.2);border-top-color:var(--gold);animation:spin 1s linear infinite"></div>
+          <h3 class="text-xl serif font-bold text-white mb-2">Verifying Identity…</h3>
+          <p class="text-gray-400 text-sm mb-4">Processing your documents, please wait.</p>
+          <p id="kCD" class="tg serif font-bold text-lg">10s remaining</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DASHBOARD MODAL ════════════════════════════════════ -->
+<div id="dashModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="mbox">
+    <div class="flex justify-between items-start mb-7 flex-wrap gap-4">
+      <div>
+        <div class="text-2xl serif font-bold tg tracking-[.15em] mb-1">⬢ AL-MUDIR Dashboard</div>
+        <div class="flex items-center gap-3 flex-wrap">
+          <span id="dName" class="text-sm text-gray-300"></span>
+          <span id="dKyc" class="bg-gold">KYC Pending</span>
+        </div>
+      </div>
+      <button onclick="closeDash()" class="text-gray-400 hover:text-white transition text-xl p-1"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex overflow-x-auto gap-1 mb-7" style="border-bottom:1px solid rgba(212,175,55,.2)">
+      <button class="dtab on"  data-t="overview"  onclick="tab(this,'overview')"> <i class="fas fa-th-large mr-1"></i>Overview</button>
+      <button class="dtab"     data-t="terminal"  onclick="tab(this,'terminal')"> <i class="fas fa-chart-line mr-1"></i>Terminal</button>
+      <button class="dtab"     data-t="payment"   onclick="tab(this,'payment')">  <i class="fas fa-wallet mr-1"></i>Payment</button>
+      <button class="dtab"     data-t="broker"    onclick="tab(this,'broker')">   <i class="fas fa-handshake mr-1"></i>Free Access</button>
+      <button class="dtab"     data-t="settings"  onclick="tab(this,'settings')"> <i class="fas fa-cog mr-1"></i>Settings</button>
+    </div>
+
+    <!-- Overview -->
+    <div id="dp-overview" class="dpanel on space-y-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg3 bgo rounded-lg p-5 text-center"><div class="text-2xl serif font-bold tg mb-1">$7.8M</div><div class="text-xs uppercase tracking-[.12em] text-gray-400">AUM</div></div>
+        <div class="bg3 bgo rounded-lg p-5 text-center"><div class="text-2xl serif font-bold text-green-400 mb-1">+12.4%</div><div class="text-xs uppercase tracking-[.12em] text-gray-400">YTD Return</div></div>
+        <div class="bg3 bgo rounded-lg p-5 text-center"><div class="text-2xl serif font-bold text-white mb-1">2.84</div><div class="text-xs uppercase tracking-[.12em] text-gray-400">Sharpe Ratio</div></div>
+        <div class="bg3 bgo rounded-lg p-5 text-center"><div class="text-2xl serif font-bold text-purple-400 mb-1">-3.2%</div><div class="text-xs uppercase tracking-[.12em] text-gray-400">Drawdown</div></div>
+      </div>
+      <div class="bg3 rounded-xl p-6" style="border:1px solid rgba(212,175,55,.2)">
+        <h4 class="text-sm uppercase tracking-[.15em] text-gray-300 font-semibold mb-5">Recent Activity</h4>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center py-2" style="border-bottom:1px solid rgba(212,175,55,.1)"><div class="flex items-center gap-3"><div class="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center"><i class="fas fa-arrow-up text-green-400 text-xs"></i></div><span class="text-sm text-gray-300">XAUUSD Long</span></div><span class="text-green-400 text-sm font-bold">+$4,320</span></div>
+          <div class="flex justify-between items-center py-2" style="border-bottom:1px solid rgba(212,175,55,.1)"><div class="flex items-center gap-3"><div class="w-8 h-8 bg-blue-500/10 rounded-full flex items-center justify-center"><i class="fas fa-arrow-up text-blue-400 text-xs"></i></div><span class="text-sm text-gray-300">NASDAQ Futures</span></div><span class="text-blue-400 text-sm font-bold">+$2,100</span></div>
+          <div class="flex justify-between items-center py-2"><div class="flex items-center gap-3"><div class="w-8 h-8 bg-red-500/10 rounded-full flex items-center justify-center"><i class="fas fa-arrow-down text-red-400 text-xs"></i></div><span class="text-sm text-gray-300">BTC/USD Short</span></div><span class="text-red-400 text-sm font-bold">-$890</span></div>
+        </div>
+      </div>
+      <div class="bg3 rounded-xl p-6" style="border:1px solid rgba(212,175,55,.3)">
+        <div class="flex items-center gap-3 mb-4">
+          <i class="fab fa-telegram tg text-2xl"></i>
+          <div><h4 class="text-sm font-bold text-white serif">VIP Signals Telegram</h4><p class="text-xs text-gray-400">Daily signals & market analysis</p></div>
+          <span id="vipBadge" class="ml-auto bg-red">Locked</span>
+        </div>
+        <div id="vipLocked"><p class="text-xs text-gray-400 mb-4">Complete broker signup & verify your Exness Account ID to unlock.</p><button onclick="tab(document.querySelector('[data-t=broker]'),'broker')" class="btn-g px-6 py-2 text-xs rounded serif tracking-[.1em]">Unlock VIP Access →</button></div>
+        <div id="vipOpen" class="hidden"><p class="text-xs text-green-400 mb-4">✓ Verified — Your VIP access is active.</p><a href="https://t.me/forbesclubfx" target="_blank" rel="noopener" class="btn-g px-6 py-2 text-xs rounded serif tracking-[.1em]"><i class="fab fa-telegram mr-1"></i>Open VIP Group</a></div>
+      </div>
+    </div>
+
+    <!-- Terminal -->
+    <div id="dp-terminal" class="dpanel space-y-4">
+      <div class="bg3 rounded-xl p-4" style="border:1px solid rgba(212,175,55,.2)"><div id="tv_dash" style="height:420px;width:100%"></div></div>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg3 bgo p-4 rounded-lg"><div class="text-xs uppercase tracking-[.1em] text-gray-400 mb-2">Active Signal</div><p class="text-sm text-green-400 font-semibold">XAUUSD — BUY @ 2,340</p></div>
+        <div class="bg3 bgo p-4 rounded-lg"><div class="text-xs uppercase tracking-[.1em] text-gray-400 mb-2">Stop Loss</div><p class="text-sm text-red-400 font-semibold">2,295 (−1.9%)</p></div>
+        <div class="bg3 bgo p-4 rounded-lg"><div class="text-xs uppercase tracking-[.1em] text-gray-400 mb-2">Take Profit</div><p class="text-sm tg font-semibold">2,428 (+3.8%)</p></div>
+      </div>
+    </div>
+
+    <!-- Payment -->
+    <div id="dp-payment" class="dpanel space-y-5">
+      <div class="bg3 rounded-xl p-6" style="border:1px solid rgba(212,175,55,.2)">
+        <h4 class="text-sm uppercase tracking-[.15em] text-gray-300 font-semibold mb-5">Payment Method</h4>
+        <div class="flex flex-wrap gap-3 mb-6">
+          <button onclick="payMode('crypto')" id="pm-crypto" class="btn-g px-5 py-2 text-xs rounded serif tracking-[.1em]">Crypto Wallet</button>
+          <button onclick="payMode('card')"   id="pm-card"   class="btn-o px-5 py-2 text-xs rounded serif tracking-[.1em]">Card</button>
+          <button onclick="payMode('gift')"   id="pm-gift"   class="btn-o px-5 py-2 text-xs rounded serif tracking-[.1em]">Gift Card</button>
+          <button onclick="payMode('btc')"    id="pm-btc"    class="btn-o px-5 py-2 text-xs rounded serif tracking-[.1em]">BTC Manual</button>
+        </div>
+
+        <!-- Crypto -->
+        <div id="pv-crypto" class="space-y-4">
+          <div class="flex items-center justify-between p-4 rounded-lg" style="border:1px solid rgba(212,175,55,.2);background:rgba(0,0,0,.2)">
+            <div><p class="text-xs uppercase tracking-[.1em] tg font-semibold mb-1">Wallet</p><p id="wAddr" class="mono text-xs text-gray-400">Not connected</p></div>
+            <div id="wDot" class="flex items-center gap-2"><div class="w-2 h-2 bg-red-500 rounded-full"></div><span class="text-xs text-gray-400">Disconnected</span></div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <button id="twBtn" onclick="selWallet('trustwallet')" class="bgo p-4 rounded-lg text-center transition" style="border-color:rgba(212,175,55,.6);background:rgba(212,175,55,.1)"><i class="fas fa-wallet tg text-xl mb-2 block"></i><div class="text-xs font-bold text-white">Trust Wallet</div></button>
+            <button id="mmBtn" onclick="selWallet('metamask')"    class="bgo p-4 rounded-lg text-center transition"><i class="fas fa-shield tg text-xl mb-2 block"></i><div class="text-xs font-bold text-white">MetaMask</div></button>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div><label class="block text-xs uppercase tracking-[.1em] text-gray-400 mb-2">Network</label><select id="pNet" onchange="updCur()" class="w-full bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"><option value="1">Ethereum (ETH)</option><option value="56">BSC (BNB)</option><option value="195">TRON (TRX)</option></select></div>
+            <div><label class="block text-xs uppercase tracking-[.1em] text-gray-400 mb-2">Currency</label><select id="pCur" class="w-full bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"><option value="ETH">ETH</option><option value="USDT">USDT</option></select></div>
+          </div>
+          <div><label class="block text-xs uppercase tracking-[.1em] text-gray-400 mb-2">Amount</label><input type="number" id="pAmt" placeholder="0.00" step="any" min="0" oninput="updUSD()" class="w-full bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"/><p class="text-xs text-gray-500 mt-1">≈ <span id="pUSD">$0.00</span> USD <span id="pFee" class="text-green-400 ml-2"></span></p></div>
+          <div><label class="block text-xs uppercase tracking-[.1em] text-gray-400 mb-2">Description (optional)</label><input type="text" id="pDesc" placeholder="e.g. Advisory Fee" class="w-full bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"/></div>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button id="wConnBtn" onclick="doConnect()" class="btn-g px-8 py-3 text-xs rounded serif tracking-[.1em] flex-1">Connect Wallet</button>
+            <button id="wPayBtn"  onclick="doSend()"    class="btn-o px-8 py-3 text-xs rounded serif tracking-[.1em] flex-1" disabled>Send Payment</button>
+          </div>
+          <div id="txBox" class="hidden p-4 rounded-lg" style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3)"><div class="flex items-center gap-2 mb-2"><i class="fas fa-check-circle text-green-400"></i><span class="text-sm font-bold text-white">Transaction Submitted</span></div><p class="text-xs mono text-gray-400 break-all">Hash: <span id="txH">—</span></p></div>
+        </div>
+
+        <!-- Card -->
+        <div id="pv-card" class="hidden space-y-4">
+          <select id="cType" class="w-full bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"><option>Visa</option><option>Mastercard</option><option>Amex</option><option>Discover</option></select>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <input id="cNum" type="text" maxlength="19" placeholder="Card Number" autocomplete="cc-number" inputmode="numeric" oninput="fmtCard(this)" class="sm:col-span-1 bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"/>
+            <input id="cExp" type="text" maxlength="5"  placeholder="MM/YY"       autocomplete="cc-exp"    oninput="fmtExp(this)"  class="bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"/>
+            <input id="cCvc" type="password" maxlength="4" placeholder="CVC"      autocomplete="cc-csc"    inputmode="numeric"     class="bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"/>
+          </div>
+          <div><label class="block text-xs uppercase tracking-[.1em] text-gray-400 mb-2">Amount (USD)</label><input id="cAmt" type="number" placeholder="5.00" min="5" step="0.01" class="w-full bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"/></div>
+          <button onclick="doCard()" class="btn-g w-full py-3 text-xs rounded serif tracking-[.1em]">Pay with Card</button>
+          <p class="text-xs text-gray-500">Card data is never stored on our servers.</p>
+        </div>
+
+        <!-- Gift -->
+        <div id="pv-gift" class="hidden space-y-4">
+          <div class="flex gap-3"><input id="gCode" type="text" placeholder="ALMUDIR-GIFT-XXX" class="flex-1 bg-transparent p-3 rounded-lg text-sm" style="border:2px solid rgba(212,175,55,.3)"/><button onclick="doGift()" class="btn-g px-6 py-3 text-xs rounded serif tracking-[.1em] whitespace-nowrap">Apply</button></div>
+          <div class="p-4 rounded-lg" style="background:rgba(0,0,0,.2);border:1px solid rgba(212,175,55,.2)"><p class="text-xs text-gray-400">Available: <span class="mono tg">ALMUDIR-GIFT-50</span> · <span class="mono tg">ALMUDIR-GIFT-100</span> · <span class="mono tg">ALMUDIR-GIFT-250</span></p></div>
+        </div>
+
+        <!-- BTC -->
+        <div id="pv-btc" class="hidden space-y-4">
+          <div class="p-5 rounded-xl text-center" style="border:1px solid rgba(212,175,55,.3);background:rgba(0,0,0,.2)">
+            <p class="text-xs uppercase tracking-[.1em] text-gray-400 mb-3">Send BTC to this address</p>
+            <p class="mono tg text-xs md:text-sm break-all mb-4">bc1qfe8kjaau2n2ggknmx6a8gclzwc9xz3zpj0lcsp</p>
+            <button onclick="cpyBTC()" class="btn-o px-6 py-2 text-xs rounded serif tracking-[.1em]"><i class="fas fa-copy mr-1"></i>Copy Address</button>
+          </div>
+          <p class="text-xs text-gray-400 text-center">After sending, email <span class="tg">inquiries@al-mudir.dev</span> with your TX hash for confirmation.</p>
+        </div>
+
+        <!-- Fee bar -->
+        <div class="mt-6 p-4 rounded-lg" style="border:1px solid rgba(212,175,55,.2);background:rgba(0,0,0,.1)">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs uppercase tracking-[.1em] text-gray-400">Inquiry Service Fee</span><span class="text-xs tg font-semibold">$5.00 USD</span></div>
+          <div class="h-2 rounded-full overflow-hidden" style="background:var(--d1)"><div id="feeBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-l))"></div></div>
+          <p id="feeTxt" class="text-xs text-gray-500 mt-2">$0.00 of $5.00 paid</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Broker -->
+    <div id="dp-broker" class="dpanel space-y-5">
+      <div class="bg3 rounded-xl p-6" style="border:1px solid rgba(212,175,55,.2)">
+        <h4 class="text-sm uppercase tracking-[.15em] text-gray-300 font-semibold mb-2">Free VIP Access via Broker</h4>
+        <p class="text-xs text-gray-400 mb-7">Sign up with our recommended broker, then enter your Exness Account ID to unlock VIP Signals — no fee required.</p>
+        <div class="flex items-start gap-4 mb-7">
+          <div class="w-8 h-8 rounded-full gg flex items-center justify-center text-xs font-bold flex-shrink-0" style="color:#04120f">1</div>
+          <div><p class="text-sm font-semibold text-white mb-2">Create a free Exness account</p><a href="https://one.exnesstrack.org/a/aczb4cfol7" target="_blank" rel="noopener" class="btn-g px-7 py-3 text-xs rounded serif tracking-[.1em]">Sign Up with Exness <i class="fas fa-external-link-alt ml-1 text-xs"></i></a></div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-8 h-8 rounded-full gg flex items-center justify-center text-xs font-bold flex-shrink-0" style="color:#04120f">2</div>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-white mb-1">Enter your Exness Account ID</p>
+            <p class="text-xs text-gray-400 mb-4">Found in your Exness dashboard under My Accounts.</p>
+            <div class="flex gap-3">
+              <input id="exId" type="text" placeholder="e.g. 12345678" maxlength="20" class="flex-1 bg-transparent p-3 rounded-lg text-sm mono" style="border:2px solid rgba(212,175,55,.3)"/>
+              <button onclick="verExness()" id="exBtn" class="btn-g px-6 py-3 text-xs rounded serif tracking-[.1em] whitespace-nowrap">Verify ID</button>
+            </div>
+            <p id="exMsg" class="text-xs mt-2 hidden"></p>
+          </div>
+        </div>
+        <div id="vipDone" class="hidden mt-7 p-5 rounded-xl text-center" style="border:1px solid rgba(16,185,129,.3);background:rgba(16,185,129,.05)">
+          <i class="fab fa-telegram text-3xl text-green-400 mb-3 block"></i>
+          <h4 class="text-lg serif font-bold text-white mb-2">VIP Access Unlocked ✓</h4>
+          <p class="text-xs text-green-400 mb-5">Your Exness account has been verified. Welcome to the VIP group.</p>
+          <a href="https://t.me/forbesclubfx" target="_blank" rel="noopener" class="btn-g px-10 py-3 text-xs rounded serif tracking-[.1em]"><i class="fab fa-telegram mr-2"></i>Open VIP Telegram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div id="dp-settings" class="dpanel space-y-5">
+      <div class="bg3 rounded-xl p-6" style="border:1px solid rgba(212,175,55,.2)">
+        <h4 class="text-sm uppercase tracking-[.15em] text-gray-300 font-semibold mb-5">Account Information</h4>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between py-2" style="border-bottom:1px solid rgba(212,175,55,.1)"><span class="text-gray-400">Name</span><span id="sName" class="text-white">—</span></div>
+          <div class="flex justify-between py-2" style="border-bottom:1px solid rgba(212,175,55,.1)"><span class="text-gray-400">Email</span><span id="sEmail" class="text-white mono text-xs">—</span></div>
+          <div class="flex justify-between py-2" style="border-bottom:1px solid rgba(212,175,55,.1)"><span class="text-gray-400">Phone</span><span id="sPhone" class="text-white">—</span></div>
+          <div class="flex justify-between py-2" style="border-bottom:1px solid rgba(212,175,55,.1)"><span class="text-gray-400">Experience</span><span id="sExp" class="text-white">—</span></div>
+          <div class="flex justify-between py-2"><span class="text-gray-400">KYC Status</span><span id="sKyc" class="bg-gold">Pending</span></div>
+        </div>
+      </div>
+      <div class="bg3 rounded-xl p-5" style="border:1px solid rgba(212,175,55,.2)">
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-400">Theme</span>
+          <button onclick="togTheme()" class="btn-o px-4 py-2 text-xs rounded serif tracking-[.1em]">Toggle Dark/Light</button>
+        </div>
+      </div>
+      <button onclick="doSignOut()" class="w-full py-3 text-xs rounded serif tracking-[.1em]" style="border:1.5px solid rgba(239,68,68,.4);color:#ef4444;background:transparent;cursor:pointer;text-transform:uppercase;letter-spacing:.15em;font-weight:700;transition:background .3s" onmouseover="this.style.background='rgba(239,68,68,.1)'" onmouseout="this.style.background='transparent'"><i class="fas fa-sign-out-alt mr-2"></i>Sign Out</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════ -->
+<footer class="relative bg1 py-20 px-6 md:px-8" style="border-top:1px solid rgba(212,175,55,.3)">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-10 mb-14">
+      <div>
+        <div class="text-2xl serif font-bold tg mb-4 tracking-[.2em]">⬢ AL-MUDIR</div>
+        <p class="text-xs text-gray-500 leading-relaxed mb-5">Institutional-grade portfolio management and fintech innovation. Established 2024.</p>
+        <div class="flex gap-3">
+          <a href="https://x.com/al_mudir"                target="_blank" rel="noopener" class="w-8 h-8 rounded flex items-center justify-center text-xs transition" style="border:1px solid rgba(212,175,55,.3)" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(212,175,55,.3)'"><i class="fab fa-twitter"></i></a>
+          <a href="https://linkedin.com/company/al-mudir" target="_blank" rel="noopener" class="w-8 h-8 rounded flex items-center justify-center text-xs transition" style="border:1px solid rgba(212,175,55,.3)" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(212,175,55,.3)'"><i class="fab fa-linkedin"></i></a>
+          <a href="https://tiktok.com/@al_mudir"          target="_blank" rel="noopener" class="w-8 h-8 rounded flex items-center justify-center text-xs transition" style="border:1px solid rgba(212,175,55,.3)" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(212,175,55,.3)'"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="text-xs uppercase tracking-[.2em] font-bold text-white mb-5">Navigation</h4>
+        <ul class="space-y-3 text-xs text-gray-400">
+          <li><a href="#about"   class="hover:text-yellow-400 transition">About</a></li>
+          <li><a href="#metrics" class="hover:text-yellow-400 transition">Portfolio</a></li>
+          <li><a href="#charts"  class="hover:text-yellow-400 transition">Terminal</a></li>
+          <li><a href="#signup"  class="hover:text-yellow-400 transition">Join</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs uppercase tracking-[.2em] font-bold text-white mb-5">Legal</h4>
+        <ul class="space-y-3 text-xs text-gray-400">
+          <li><a href="#" class="hover:text-yellow-400 transition">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-yellow-400 transition">Terms of Service</a></li>
+          <li><a href="#" class="hover:text-yellow-400 transition">Risk Disclosure</a></li>
+          <li><a href="#" class="hover:text-yellow-400 transition">Compliance</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs uppercase tracking-[.2em] font-bold text-white mb-5">Global Offices</h4>
+        <div class="space-y-3 text-xs text-gray-400">
+          <div><div class="tg font-semibold mb-1">📍 Dubai</div><p>DIFC • UAE</p></div>
+          <div><div class="tg font-semibold mb-1">📍 London</div><p>The City • UK</p></div>
+          <div><div class="tg font-semibold mb-1">📍 New York</div><p>Wall Street • USA</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="h-px mb-8" style="background:linear-gradient(90deg,transparent,rgba(212,175,55,.2),transparent)"></div>
+    <!-- Currency converter -->
+    <div class="mb-10 flex justify-center">
+      <div class="rounded-xl px-5 py-4 max-w-lg w-full" style="background:rgba(10,38,34,.5);border:1px solid rgba(212,175,55,.2)">
+        <p class="text-xs uppercase tracking-[.2em] tg font-semibold text-center mb-4">Currency Converter</p>
+        <div class="flex items-center gap-3 flex-wrap justify-center">
+          <input id="cvF" type="number" placeholder="0.00" class="w-20 bg-transparent rounded px-2 py-2 text-sm mono text-center" style="border:1px solid rgba(212,175,55,.3)"/>
+          <select id="cvFC" class="bg-transparent rounded px-2 py-2 text-xs" style="border:1px solid rgba(212,175,55,.3)">
+            <option>USD</option><option>EUR</option><option>GBP</option><option>AED</option><option>BTC</option><option>ETH</option><option>BNB</option><option>USDT</option>
+          </select>
+          <span class="tg text-lg">⟷</span>
+          <input id="cvT" type="number" placeholder="0.00" readonly class="w-20 bg-transparent rounded px-2 py-2 text-sm mono text-center" style="border:1px solid rgba(212,175,55,.3)"/>
+          <select id="cvTC" class="bg-transparent rounded px-2 py-2 text-xs" style="border:1px solid rgba(212,175,55,.3)">
+            <option>USD</option><option>EUR</option><option>GBP</option><option>AED</option><option>BTC</option><option>ETH</option><option>BNB</option><option>USDT</option>
+          </select>
+          <button id="cvBtn" onclick="doCvt()" class="btn-g px-4 py-2 rounded text-xs serif tracking-[.05em]"><i class="fas fa-sync-alt"></i></button>
+        </div>
+        <p class="text-xs text-gray-500 text-center mt-3">Last updated: <span id="cvTime">—</span></p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 mb-10">
+      <div><h5 class="text-xs uppercase tracking-[.2em] font-bold text-gray-300 mb-3">⚠️ Risk Disclosure</h5><p class="text-xs text-gray-500 leading-relaxed">Algorithmic trading involves substantial risk. Past performance is not indicative of future results. Suitable for accredited investors only.</p></div>
+      <div><h5 class="text-xs uppercase tracking-[.2em] font-bold text-gray-300 mb-3">🔐 Regulatory Status</h5><div class="text-xs text-gray-500 space-y-1"><p>✓ Registered with DFSA (Dubai)</p><p>✓ FCA Authorization (UK)</p><p>✓ Accredited with FINRA (USA)</p><p>✓ GDPR Compliant · AML/KYC Verified</p></div></div>
+    </div>
+    <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600" style="border-top:1px solid rgba(212,175,55,.2)">
+      <div class="flex items-center gap-3"><div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div><span>Status: <span class="text-green-400 font-bold">OPERATIONAL</span></span><span>•</span><span>Latency: <span class="mono tg">0.04ms</span></span></div>
+      <p><span class="text-white font-semibold">AL-MUDIR</span> © 2024–2026. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTop" class="fixed bottom-8 right-8 z-50 w-12 h-12 gg rounded-full shadow-xl flex items-center justify-center font-bold hover:scale-110 transition-all" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up" style="color:#04120f"></i></button>
+
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script src="/crypto-payment.js"></script>
+<script>
+'use strict';
+
+/* ── Supabase ─────────────────────────────────────────── */
+// Replace these with your Supabase project values
+const SB_URL  = 'https://fdwezkdtmvlcpfnbrjzp.supabase.co';
+const SB_KEY  = 'sb_publishable_99F6itx3-n0deIfoY4TKNg_njhtpSwC';
+let sb = null;
+function initSB() {
+  try {
+    if (window.supabase) sb = window.supabase.createClient(SB_URL, SB_KEY);
+  } catch(_) {}
+}
+
+/* ── State ────────────────────────────────────────────── */
+let ST = {
+  user:    JSON.parse(localStorage.getItem('alm_u')  || 'null'),
+  kyc:     localStorage.getItem('alm_k') === '1',
+  vip:     localStorage.getItem('alm_v') === '1',
+  fee:     parseFloat(localStorage.getItem('alm_f')  || '0'),
+  wallet:  'trustwallet',
+  cpm:     null,
+};
+function save() {
+  if (ST.user) localStorage.setItem('alm_u', JSON.stringify(ST.user));
+  localStorage.setItem('alm_k', ST.kyc ? '1' : '0');
+  localStorage.setItem('alm_v', ST.vip ? '1' : '0');
+  localStorage.setItem('alm_f', ST.fee.toString());
+}
+
+/* ── Toast ────────────────────────────────────────────── */
+let _tid = null;
+function toast(msg, type = '', dur = 3500) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show ' + type;
+  clearTimeout(_tid);
+  _tid = setTimeout(() => { el.className = ''; }, dur);
+}
+
+/* ── Theme ────────────────────────────────────────────── */
+const savedTh = localStorage.getItem('alm_th') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTh);
+updTI(savedTh);
+function togTheme() {
+  const c = document.documentElement.getAttribute('data-theme');
+  const n = c === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', n);
+  localStorage.setItem('alm_th', n);
+  updTI(n);
+}
+function updTI(t) {
+  const b = document.getElementById('themeBtn');
+  if (b) b.innerHTML = t === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+}
+document.getElementById('themeBtn').addEventListener('click', togTheme);
+
+/* ── Mobile menu ──────────────────────────────────────── */
+document.getElementById('ham').addEventListener('click', () => {
+  document.getElementById('mob').classList.toggle('open');
+});
+document.querySelectorAll('#mob a').forEach(a => a.addEventListener('click', () => {
+  document.getElementById('mob').classList.remove('open');
+}));
+
+/* ── Scroll top ───────────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('vis', window.scrollY > 300);
+});
+
+/* ── Smooth anchors ───────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
+  });
+});
+
+/* ── TradingView ──────────────────────────────────────── */
+function loadTV(id) {
+  if (typeof TradingView === 'undefined' || !document.getElementById(id)) return;
+  try {
+    new TradingView.widget({
+      autosize: true, symbol:'XAUUSD', interval:'15',
+      timezone:'Etc/UTC', theme:'dark', style:'1', locale:'en',
+      toolbar_bg:'#061d18', enable_publishing:false, container_id: id
+    });
+  } catch(_) {}
+}
+loadTV('tv_main');
+
+/* ── Newsletter ───────────────────────────────────────── */
+document.getElementById('nlForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = document.getElementById('nlEmail').value.trim();
+  const btn = e.target.querySelector('button');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast('Enter a valid email.','err'); return; }
+  btn.textContent = 'Subscribing…'; btn.disabled = true;
+  try {
+    if (sb) await sb.from('newsletter_subscribers').insert([{email}]);
+    else await new Promise(r => setTimeout(r, 1000));
+    toast('✓ Subscribed!','ok');
+    e.target.reset();
+  } catch(_) { toast('Subscribed (offline mode)','ok'); }
+  finally { btn.textContent = 'Subscribe Now'; btn.disabled = false; }
+});
+
+/* ── Progress steps ───────────────────────────────────── */
+function setStep(n) {
+  for (let i = 1; i <= 3; i++) {
+    const el = document.getElementById('s'+i+'n');
+    const tx = document.getElementById('s'+i+'t');
+    el.className = 'snum ' + (i < n ? 'sdone' : i === n ? 'sact' : 'spend');
+    el.innerHTML = i < n ? '<i class="fas fa-check text-xs"></i>' : i;
+    tx.className = 'text-xs ' + (i <= n ? 'text-gray-300' : 'text-gray-500');
+  }
+}
+
+/* ── Registration ─────────────────────────────────────── */
+document.getElementById('regForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const fn = document.getElementById('rFN').value.trim();
+  const ln = document.getElementById('rLN').value.trim();
+  const em = document.getElementById('rEM').value.trim();
+  const ph = document.getElementById('rPH').value.trim();
+  const ex = document.getElementById('rEX').value;
+  const am = document.getElementById('rAM').value.trim();
+  const ob = document.getElementById('rOB').value.trim();
+  const tc = document.getElementById('rTC').checked;
+  const err = document.getElementById('rErr');
+
+  if (!tc)  { err.textContent='Please accept the terms.'; err.classList.remove('hidden'); return; }
+  if (!fn || !ln) { err.textContent='Please enter your full name.'; err.classList.remove('hidden'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { err.textContent='Enter a valid email.'; err.classList.remove('hidden'); return; }
+  if (!ph)  { err.textContent='Please enter your phone number.'; err.classList.remove('hidden'); return; }
+  if (!ex)  { err.textContent='Please select your experience level.'; err.classList.remove('hidden'); return; }
+  if (!am)  { err.textContent='Please enter your planned investment amount.'; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+
+  const btn = document.getElementById('rBtn');
+  btn.textContent = 'Registering…'; btn.disabled = true;
+
+  const u = { first_name:fn, last_name:ln, email:em, phone:ph, experience:ex, investment_amount:am, objectives:ob, kyc_verified:false, vip_unlocked:false, created_at:new Date().toISOString() };
+
+  try {
+    if (sb) {
+      const { error } = await sb.from('users').insert([u]);
+      if (error && error.code !== '23505') throw error;
+    } else {
+      await new Promise(r => setTimeout(r, 700));
+    }
+    ST.user = u; save();
+    document.getElementById('regPanel').classList.add('hidden');
+    document.getElementById('kycPanel').classList.remove('hidden');
+    setStep(2);
+    document.getElementById('kycPanel').scrollIntoView({ behavior:'smooth', block:'start' });
+  } catch(er) {
+    err.textContent = 'Registration failed. Please try again.';
+    err.classList.remove('hidden');
+  } finally {
+    btn.textContent = 'Complete Registration'; btn.disabled = false;
+  }
+});
+
+/* ── KYC ──────────────────────────────────────────────── */
+document.getElementById('kSubmit').addEventListener('click', () => {
+  const name = document.getElementById('kName').value.trim();
+  const dob  = document.getElementById('kDob').value;
+  const doc  = document.getElementById('kDoc').files[0];
+  const con  = document.getElementById('kCon').checked;
+  if (!name) { toast('Enter your full legal name.','err'); return; }
+  if (!dob)  { toast('Enter your date of birth.','err'); return; }
+  if (!doc)  { toast('Upload an ID document.','err'); return; }
+  if (!con)  { toast('Provide consent to continue.','err'); return; }
+  document.getElementById('kycForm').classList.add('hidden');
+  document.getElementById('kycProc').classList.remove('hidden');
+  let sec = 10;
+  const cd = document.getElementById('kCD');
+  const t = setInterval(() => {
+    sec--;
+    cd.textContent = sec > 0 ? `${sec}s remaining` : 'Verifying…';
+    if (sec <= 0) { clearInterval(t); doneKYC(); }
+  }, 1000);
+});
+
+document.getElementById('kSkip').addEventListener('click', () => {
+  toast('KYC skipped. Some features limited.','');
+  doneKYC(true);
+});
+
+function doneKYC(skip = false) {
+  if (!skip) {
+    ST.kyc = true; save();
+    if (sb && ST.user) sb.from('users').update({kyc_verified:true}).eq('email',ST.user.email).then(()=>{});
+  }
+  setStep(3);
+  document.getElementById('navDash').classList.remove('hidden');
+  document.getElementById('navPortal').classList.add('hidden');
+  openDash();
+}
+
+/* ── Dashboard ────────────────────────────────────────── */
+function openDash() {
+  if (!ST.user) { goSignup(); return; }
+  document.getElementById('dashModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  const name = (ST.user.first_name||'')+' '+(ST.user.last_name||'');
+  document.getElementById('dName').textContent  = name.trim();
+  document.getElementById('sName').textContent  = name.trim();
+  document.getElementById('sEmail').textContent = ST.user.email || '—';
+  document.getElementById('sPhone').textContent = ST.user.phone || '—';
+  document.getElementById('sExp').textContent   = ST.user.experience || '—';
+  if (ST.kyc) {
+    document.getElementById('dKyc').textContent = 'KYC Verified';
+    document.getElementById('dKyc').className   = 'bg-green';
+    document.getElementById('sKyc').textContent = 'Verified';
+    document.getElementById('sKyc').className   = 'bg-green';
+  }
+  if (ST.vip) showVIP();
+  updFee();
+  setTimeout(() => loadTV('tv_dash'), 300);
+}
+
+function closeDash() {
+  document.getElementById('dashModal').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('dashModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeDash();
+});
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDash(); });
+
+function goSignup() {
+  document.getElementById('signup').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* ── Tab switching ────────────────────────────────────── */
+function tab(el, name) {
+  document.querySelectorAll('.dtab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.dpanel').forEach(p => p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('dp-'+name).classList.add('on');
+}
+
+/* ── Payment modes ────────────────────────────────────── */
+function payMode(m) {
+  ['crypto','card','gift','btc'].forEach(x => {
+    document.getElementById('pv-'+x).classList.add('hidden');
+    document.getElementById('pm-'+x).className = 'btn-o px-5 py-2 text-xs rounded serif tracking-[.1em]';
+  });
+  document.getElementById('pv-'+m).classList.remove('hidden');
+  document.getElementById('pm-'+m).className = 'btn-g px-5 py-2 text-xs rounded serif tracking-[.1em]';
+}
+
+/* ── Wallet ───────────────────────────────────────────── */
+function selWallet(type) {
+  ST.wallet = type;
+  ['twBtn','mmBtn'].forEach(id => document.getElementById(id).style.background = '');
+  const a = type === 'trustwallet' ? 'twBtn' : 'mmBtn';
+  document.getElementById(a).style.background = 'rgba(212,175,55,.1)';
+}
+
+async function doConnect() {
+  try {
+    if (!ST.cpm) ST.cpm = new CryptoPaymentManager();
+    const res = await ST.cpm.connectWallet(ST.wallet);
+    document.getElementById('wAddr').textContent = res.account.slice(0,6)+'…'+res.account.slice(-4);
+    document.getElementById('wDot').innerHTML = '<div class="w-2 h-2 bg-green-400 rounded-full"></div><span class="text-xs text-green-400">'+res.chainName+'</span>';
+    document.getElementById('wConnBtn').textContent = '✓ Connected';
+    document.getElementById('wConnBtn').disabled = true;
+    document.getElementById('wPayBtn').disabled = false;
+    toast('Wallet connected: '+res.chainName,'ok');
+  } catch(e) { toast(e.message,'err'); }
+}
+
+function updCur() {
+  const c = parseInt(document.getElementById('pNet').value);
+  const s = document.getElementById('pCur');
+  s.innerHTML = c === 1  ? '<option value="ETH">ETH</option><option value="USDT">USDT (ERC-20)</option>'
+              : c === 56 ? '<option value="BNB">BNB</option><option value="USDT">USDT (BEP-20)</option>'
+              :             '<option value="TRX">TRX</option><option value="USDT">USDT (TRC-20)</option>';
+}
+
+function updUSD() {
+  if (!ST.cpm) ST.cpm = new CryptoPaymentManager();
+  const amt = parseFloat(document.getElementById('pAmt').value) || 0;
+  const cur = document.getElementById('pCur').value;
+  const usd = ST.cpm.calculateUSD(amt, cur);
+  document.getElementById('pUSD').textContent = '$'+usd.toFixed(2);
+  document.getElementById('pFee').textContent = usd >= 5 ? '✓ Covers fee' : '';
+}
+
+async function doSend() {
+  if (!ST.cpm || !ST.cpm.walletConnected) { toast('Connect wallet first.','err'); return; }
+  const amt = parseFloat(document.getElementById('pAmt').value) || 0;
+  const cur = document.getElementById('pCur').value;
+  const dsc = document.getElementById('pDesc').value || 'AL-MUDIR Advisory Fee';
+  const cid = parseInt(document.getElementById('pNet').value);
+  if (amt <= 0) { toast('Enter a valid amount.','err'); return; }
+  const btn = document.getElementById('wPayBtn');
+  btn.textContent = 'Processing…'; btn.disabled = true;
+  try {
+    if (ST.cpm.chainId !== cid) await ST.cpm.switchNetwork(cid);
+    const addr = cur === 'USDT'
+      ? (ST.cpm.treasuryUSDTAddress[cid]   || ST.cpm.treasuryUSDTAddress[1])
+      : (ST.cpm.treasuryNativeAddress[cid] || ST.cpm.treasuryNativeAddress[1]);
+    const res = await ST.cpm.processPayment({ amount:amt, currency:cur, recipientAddress:addr, description:dsc });
+    addFee(ST.cpm.calculateUSD(amt, cur));
+    document.getElementById('txH').textContent = res.transactionHash.slice(0,10)+'…'+res.transactionHash.slice(-6);
+    document.getElementById('txBox').classList.remove('hidden');
+    toast('✓ Transaction submitted!','ok');
+  } catch(e) { toast('Payment failed: '+e.message,'err'); }
+  finally { btn.textContent = 'Send Payment'; btn.disabled = false; }
+}
+
+/* ── Card ─────────────────────────────────────────────── */
+function fmtCard(i) { let v=i.value.replace(/\D/g,'').slice(0,16); i.value=v.replace(/(.{4})/g,'$1 ').trim(); }
+function fmtExp(i)  { let v=i.value.replace(/\D/g,''); if(v.length>=2) v=v.slice(0,2)+'/'+v.slice(2,4); i.value=v; }
+
+async function doCard() {
+  if (!ST.cpm) ST.cpm = new CryptoPaymentManager();
+  const num = document.getElementById('cNum').value.replace(/\s/g,'');
+  const exp = document.getElementById('cExp').value;
+  const cvc = document.getElementById('cCvc').value;
+  const amt = parseFloat(document.getElementById('cAmt').value) || 0;
+  if (num.length < 12)               { toast('Enter a valid card number.','err'); return; }
+  if (!/^\d{2}\/\d{2}$/.test(exp))   { toast('Enter expiry as MM/YY.','err'); return; }
+  if (cvc.length < 3)                 { toast('Enter a valid CVC.','err'); return; }
+  if (amt < 5)                        { toast('Minimum payment is $5.00.','err'); return; }
+  try {
+    const r = await ST.cpm.processCardPayment({ usdAmount:amt, cardLast4:num.slice(-4) });
+    addFee(amt);
+    toast('✓ Card authorized. Ref: '+r.txReference,'ok');
+  } catch(e) { toast('Card failed: '+e.message,'err'); }
+}
+
+/* ── Gift ─────────────────────────────────────────────── */
+function doGift() {
+  if (!ST.cpm) ST.cpm = new CryptoPaymentManager();
+  const code = document.getElementById('gCode').value.trim();
+  try {
+    const v = ST.cpm.validateGiftCard(code);
+    addFee(v);
+    toast('✓ Gift card applied: $'+v,'ok');
+    document.getElementById('gCode').value = '';
+  } catch(e) { toast(e.message,'err'); }
+}
+
+/* ── BTC copy ─────────────────────────────────────────── */
+function cpyBTC() {
+  navigator.clipboard.writeText('bc1qfe8kjaau2n2ggknmx6a8gclzwc9xz3zpj0lcsp')
+    .then(() => toast('BTC address copied!','ok'))
+    .catch(() => toast('Please copy manually.','err'));
+}
+
+/* ── Fee tracking ─────────────────────────────────────── */
+function addFee(usd) {
+  ST.fee += usd; save(); updFee();
+}
+function updFee() {
+  const pct = Math.min(100, (ST.fee / 5) * 100);
+  const b   = document.getElementById('feeBar');
+  const t   = document.getElementById('feeTxt');
+  if (b) b.style.width = pct + '%';
+  if (t) t.textContent = '$'+Math.min(ST.fee,5).toFixed(2)+' of $5.00 paid'+(ST.fee>=5?' ✓':'');
+}
+
+/* ── Exness verify ────────────────────────────────────── */
+async function verExness() {
+  const id  = document.getElementById('exId').value.trim();
+  const msg = document.getElementById('exMsg');
+  const btn = document.getElementById('exBtn');
+  if (!id || id.length < 5) { toast('Enter a valid Exness Account ID.','err'); return; }
+  btn.textContent = 'Verifying…'; btn.disabled = true;
+  await new Promise(r => setTimeout(r, 2000));
+  const ok = /^\d{6,}$/.test(id) || id.length >= 6;
+  if (ok) {
+    ST.vip = true; save();
+    if (sb && ST.user) sb.from('users').update({vip_unlocked:true,exness_account_id:id}).eq('email',ST.user.email).then(()=>{});
+    msg.textContent = '✓ Account verified!'; msg.className = 'text-xs mt-2 text-green-400'; msg.classList.remove('hidden');
+    document.getElementById('vipDone').classList.remove('hidden');
+    showVIP();
+    toast('🎉 VIP access unlocked!','ok', 5000);
+  } else {
+    msg.textContent = '✗ ID not found. Please check and retry.'; msg.className = 'text-xs mt-2 text-red-400'; msg.classList.remove('hidden');
+    toast('Account ID not recognized.','err');
+  }
+  btn.textContent = 'Verify ID'; btn.disabled = false;
+}
+
+function showVIP() {
+  document.getElementById('vipLocked').classList.add('hidden');
+  document.getElementById('vipOpen').classList.remove('hidden');
+  document.getElementById('vipBadge').textContent = 'Unlocked';
+  document.getElementById('vipBadge').className   = 'ml-auto bg-green';
+  if (document.getElementById('vipDone')) document.getElementById('vipDone').classList.remove('hidden');
+}
+
+/* ── Currency converter ───────────────────────────────── */
+async function doCvt() {
+  if (!ST.cpm) ST.cpm = new CryptoPaymentManager();
+  const amt = parseFloat(document.getElementById('cvF').value) || 0;
+  const fr  = document.getElementById('cvFC').value;
+  const to  = document.getElementById('cvTC').value;
+  const btn = document.getElementById('cvBtn');
+  if (amt <= 0) { toast('Enter an amount.','err'); return; }
+  btn.innerHTML = '<i class="fas fa-spinner" style="animation:spin 1s linear infinite"></i>'; btn.disabled = true;
+  try {
+    const r = await ST.cpm.convertCurrency(amt, fr, to);
+    document.getElementById('cvT').value    = r.toFixed(6);
+    document.getElementById('cvTime').textContent = new Date().toLocaleTimeString();
+  } catch(_) { toast('Could not fetch live rates.','err'); }
+  finally { btn.innerHTML = '<i class="fas fa-sync-alt"></i>'; btn.disabled = false; }
+}
+
+/* ── Sign out ─────────────────────────────────────────── */
+function doSignOut() {
+  if (!confirm('Sign out of AL-MUDIR?')) return;
+  ['alm_u','alm_k','alm_v','alm_f'].forEach(k => localStorage.removeItem(k));
+  ST = { user:null, kyc:false, vip:false, fee:0, wallet:'trustwallet', cpm:null };
+  closeDash();
+  document.getElementById('navDash').classList.add('hidden');
+  document.getElementById('navPortal').classList.remove('hidden');
+  document.getElementById('regPanel').classList.remove('hidden');
+  document.getElementById('kycPanel').classList.add('hidden');
+  setStep(1);
+  toast('Signed out successfully.','');
+}
+
+/* ── Init ─────────────────────────────────────────────── */
+window.addEventListener('load', () => {
+  initSB();
+  if (ST.user) {
+    document.getElementById('navDash').classList.remove('hidden');
+    document.getElementById('navPortal').classList.add('hidden');
+    setStep(ST.kyc ? 3 : 2);
+    if (ST.vip) showVIP();
+  }
+  // Scroll-reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('section').forEach(s => {
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(18px)';
+    s.style.transition = 'opacity .7s ease, transform .7s ease';
+    obs.observe(s);
+  });
+  // SW
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
+});
+</script>
+</body>
+</html>
