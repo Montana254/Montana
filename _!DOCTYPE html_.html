@@ -3,88 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Dashboard</title>
-    <!-- Include CSS and JS files here -->
+    <title>AL-MUDIR Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Cleaner navigation -->
-    <nav>
+    <nav class="navbar">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Support</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#terminal">Terminal</a></li>
+            <li><a href="#payment">Payment</a></li>
+            <li><a href="#broker">Broker</a></li>
+            <li><a href="#settings">Settings</a></li>
         </ul>
     </nav>
-    
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Welcome to Your Dashboard</h1>
-        <p>Your one-stop solution for all your trading needs.</p>
-    </section>
-    
-    <!-- Existing AL-MUDIR Functionality -->
-    <div id="dashboard-modal">
-        <!-- Existing dashboard modal code here -->
-    </div>
-    
-    <!-- Payment Processing -->
-    <div id="payment-processing">
-        <!-- Crypto/Card/Gift/BTC payment options -->
-    </div>
-    
-    <!-- KYC Verification Flow -->
-    <div id="kyc-verification">
-        <!-- KYC verification form and logic -->
-    </div>
-    
-    <!-- VIP Telegram Integration -->
-    <div id="vip-telegram">
-        <!-- Logic for VIP Telegram channel access -->
-    </div>
-    
-    <!-- Theme Toggle -->
-    <button id="theme-toggle">Toggle Theme</button>
-    
-    <!-- Currency Converter -->
-    <div id="currency-converter">
-        <!-- Currency conversion logic here -->
-    </div>
-    
-    <!-- Newsletter Subscription -->
-    <div id="newsletter-subscription">
-        <form id="newsletter-form">
-            <input type="email" placeholder="Enter your email" required />
-            <button type="submit">Subscribe</button>
-        </form>
-    </div>
-    
-    <!-- JavaScript Event Handlers and Functions -->
-    <script>
-        document.getElementById('theme-toggle').addEventListener('click', function() {
-            // Your theme toggle logic here
-        });
-        // Additional JavaScript event handlers and functions to support features
-    </script>
-    
-    <!-- Supabase Integration -->
-    <script>
-        // Supabase initialization and logic here
-    </script>
-    
-    <!-- TradingView Charts -->
-    <div id="tradingview-charts">
-        <!-- Embed your TradingView charts here -->
-    </div>
-    
-    <!-- Registration/Authentication Workflow -->
-    <div id="auth-workflow">
-        <!-- Your registration and authentication logic here -->
-    </div>
-    
-    <!-- Footer -->
+
+    <header class="hero">
+        <h1>Welcome to AL-MUDIR</h1>
+        <p>Your one-stop solution for trading and management.</p>
+    </header>
+
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <!-- Overview content goes here -->
+        </section>
+        <section id="terminal">
+            <h2>Terminal</h2>
+            <!-- Terminal content goes here -->
+        </section>
+        <section id="payment">
+            <h2>Payment</h2>
+            <div>
+                <h3>Payment Options</h3>
+                <ul>
+                    <li>Crypto</li>
+                    <li>Card</li>
+                    <li>Gift</li>
+                    <li>BTC</li>
+                </ul>
+            </div>
+        </section>
+        <section id="broker">
+            <h2>Broker</h2>
+            <!-- Broker content goes here -->
+        </section>
+        <section id="settings">
+            <h2>Settings</h2>
+            <!-- Settings content goes here -->
+        </section>
+        <section id="kyc">
+            <h2>KYC Workflow</h2>
+            <!-- KYC content goes here -->
+        </section>
+        <section id="telegram">
+            <h2>VIP Telegram Integration</h2>
+            <!-- Telegram content goes here -->
+        </section>
+        <section id="theme-toggle">
+            <h2>Theme Toggle</h2>
+            <button id="themeToggle">Toggle Theme</button>
+        </section>
+        <section id="currency-converter">
+            <h2>Currency Converter</h2>
+            <!-- Currency conversion functionality goes here -->
+        </section>
+        <section id="newsletter">
+            <h2>Newsletter</h2>
+            <form>
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </section>
+        <section id="registration">
+            <h2>Registration Flow</h2>
+            <!-- Registration content goes here -->
+        </section>
+    </main>
+
     <footer>
-        <p>&copy; 2026 Your Company. All rights reserved.</p>
+        <p>&copy; 2026 AL-MUDIR. All rights reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
+<script>
+    // JavaScript functions go here
+    // All 50+ JavaScript functions and event listeners
+    const functions = {
+        // Example function
+        exampleFunction: function() {
+            // function logic here
+        },
+        // Add more functions here...
+    };
+
+    document.getElementById('themeToggle').addEventListener('click', function() {
+        // Theme toggle functionality
+    });
+
+    // Supabase config and TradingView charts initialization
+    // ... other functionality ...
+</script>
